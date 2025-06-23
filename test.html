@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supermarket Procurement Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jsPDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Procurement Assistant</div>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+            <li><a href="#" class="nav-link" data-page="add">Add Item</a></li>
+            <li><a href="#" class="nav-link" data-page="settings">Settings</a></li>
+            <li><a href="#" class="nav-link" data-page="about">About</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Home/Table -->
+        <section id="home-page" class="page">
+            <div class="controls-row">
+                <label>Sales Growth Target
+                    <select id="growth">
+                        <option value="0">0%</option>
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                        <option value="30">30%</option>
+                    </select>
+                </label>
+                <label>Customer Flow
+                    <select id="flow">
+                        <option value="average">Average</option>
+                        <option value="busy">Busy</option>
+                        <option value="slow">Slow</option>
+                    </select>
+                </label>
+                <button id="export-pdf">Download Order</button>
+            </div>
+            <div id="low-stock-alert" class="low-stock-alert"></div>
+            <div class="table-responsive">
+                <table id="items-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Carton Size</th>
+                            <th>Current Stock pcs</th>
+                            <th>Last Week Sale pcs</th>
+                            <th>Supplier Lead Time (days)</th>
+                            <th>Low Stock Threshold pcc</th>
+                            <th>Projected Sales</th>
+                            <th>Order by Date</th>
+                            <th>Suggested Cartons</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results"></tbody>
+                </table>
+            </div>
+            <div class="fast-movers-section">
+                <h2>Fast Movers</h2>
+                <ul id="fast-movers"></ul>
+            </div>
+        </section>
+
+        <!-- Add Item -->
+        <section id="add-page" class="page" style="display:none;">
+            <h2>Add New Item</h2>
+            <form id="add-item-form" class="add-item-form">
+                <div>
+                    <label>Item Name<input type="text" id="add-name" required></label>
+                </div>
+                <div>
+                    <label>Carton Size<input type="number" id="add-cartonSize" required min="1"></label>
+                </div>
+                <div>
+                    <label>Current Stock<input type="number" id="add-stock" required min="0"></label>
+                </div>
+                <div>
+                    <label>Last Week Sales<input type="number" id="add-weeklySales" required min="0"></label>
+                </div>
+                <div>
+                    <label>Supplier Lead Time (days)<input type="number" id="add-leadTime" required min="1"></label>
+                </div>
+                <div>
+                    <label>Low Stock Threshold<input type="number" id="add-lowStockThreshold"></label>
+                </div>
+                <button type="submit">Add Item</button>
+            </form>
+        </section>
+
+        <!-- Settings -->
+        <section id="settings-page" class="page" style="display:none;">
+            <h2>Settings</h2>
+            <div>
+                <label>Global Low Stock Threshold
+                    <input type="number" id="global-low-stock-threshold" min="0" value="10">
+                </label>
+            </div>
+            <div>
+                <button id="reset-data">Reset All Data</button>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about-page" class="page" style="display:none;">
+            <h2>About</h2>
+            <p>
+                This Procurement Assistant helps  optimize restocking based on real-time sales, stock, growth targets, and supplier lead times.<br>
+                Features: Manual data entry, PDF export, low stock alerts, local data storage, fast movers, and mobile responsiveness.<br>
+                
+            </p>
+        </section>
+    </main>
+    
+    <footer>
+        <small>&copy; Procurement Assistant Version 1.0</small>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
